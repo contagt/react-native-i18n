@@ -42,6 +42,12 @@ public class RNI18nModule extends ReactContextBaseJavaModule {
       languageTag = builder.toString();
     }
 
+    // Strip Unicode extensions (e.g. "-u-mu-celsius") — keep only baseName
+    int extensionIndex = languageTag.indexOf("-u-");
+    if (extensionIndex != -1) {
+      languageTag = languageTag.substring(0, extensionIndex);
+    }
+
     if (languageTag.matches("^(iw|in|ji).*")){
       return languageTag
         .replace("iw","he")
